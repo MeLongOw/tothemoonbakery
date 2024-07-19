@@ -1,0 +1,153 @@
+import React, { useMemo, useState } from "react";
+import { BiDetail } from "react-icons/bi";
+import { IoIosEye } from "react-icons/io";
+import { formatMoney } from "src/utils/helper";
+import { MdModeEdit } from "react-icons/md";
+import { FaEye } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { useAppStore } from "src/store/useAppStore";
+import { DetailProduct, ProductForm } from "..";
+import { apiDeleteProduct, apiToggleIsShowProduct } from "src/apis/product";
+import { toast } from "react-toastify";
+
+const ProductCard = ({
+    product,
+    category,
+    handleGetProductList = () => {},
+}) => {
+    const [minPrice, setMinPrice] = useState("");
+    const [maxPrice, setMaxPrice] = useState("");
+    const { openModal, setModalChildren } = useAppStore();
+
+    const handleEdit = () => {
+        openModal();
+        setModalChildren(
+            <ProductForm
+                product={product}
+                category={category}
+                handleGetProductList={handleGetProductList}
+            />
+        );
+    };
+
+    const handleDelete = async () => {
+        const response = await apiDeleteProduct(product._id);
+        if (response.success) {
+            toast.success("Xoá sản phẩm thành công", { theme: "dark" });
+            handleGetProductList();
+        }
+        if (!response.success) {
+            toast.success("Đã có lỗi xảy ra", { theme: "dark" });
+            handleGetProductList();
+        }
+    };
+
+    const handleToggleShow = async () => {
+        const response = await apiToggleIsShowProduct(product._id);
+        if (response.success) {
+            if (response.product.isShow) {
+                toast.success("Sản phẩm đã được hiển thị", { theme: "dark" });
+                handleGetProductList();
+            }
+            if (!response.product.isShow) {
+                toast.success("Sản phẩm đã được ẩn", { theme: "dark" });
+                handleGetProductList();
+            }
+        }
+        if (!response.success) {
+            toast.error("Đã có lỗi xảy ra", { theme: "dark" });
+        }
+    };
+
+    const handleShowDetail = () => {
+        openModal();
+        setModalChildren(<DetailProduct product={product} />);
+    };
+
+    useMemo(() => {
+        if (!product.optionList?.length) {
+            setMinPrice(+product.price);
+            setMaxPrice(0);
+        }
+        if (product.optionList?.length) {
+            const minOfOption = product.optionList
+                .map((el) => Math.min(...el.subOptions.map((el) => el.price)))
+                .reduce((acc, curr) => acc + parseInt(curr), 0);
+            const maxOfOption = product.optionList
+                .map((el) => Math.max(...el.subOptions.map((el) => el.price)))
+                .reduce((acc, curr) => acc + parseInt(curr), 0);
+
+            setMinPrice(+product.price + +minOfOption);
+
+            setMaxPrice(+product.price + +maxOfOption);
+        }
+    }, [product]);
+
+    return (
+        <div
+            className="group relative flex flex-col bg-card border-orange-yellow-main border shadow-2xl p-2 rounded-lg hover:animate-pulsate-fwd1 cursor-pointer "
+            onClick={handleShowDetail}
+        >
+            <div className="absolute top-4 right-4 z-10 flex gap-2">
+                <div
+                    className="aspect-square bg-red-500 p-2 rounded-full"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        handleEdit();
+                    }}
+                >
+                    <MdModeEdit />
+                </div>
+                <div
+                    className="aspect-square bg-red-500 p-2 rounded-full"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete();
+                    }}
+                >
+                    <MdDelete />
+                </div>
+                <div
+                    className={`aspect-square ${
+                        product.isShow ? "bg-red-500" : "bg-blue-gray-400"
+                    }  p-2 rounded-full`}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        handleToggleShow();
+                    }}
+                >
+                    <FaEye />
+                </div>
+            </div>
+            <div className="relative w-full aspect-square bg-blue-gray-700 rounded-lg">
+                <img />
+                <div className="absolute w-full aspect-square flex justify-center items-center">
+                    <div className="hidden group-hover:block rounded-full border-white border p-1">
+                        <IoIosEye size={32} />
+                    </div>
+                </div>
+            </div>
+            <div className="flex-1 mt-4 flex flex-col justify-between">
+                <div className="">
+                    <h4 className="text-center text-orange-yellow-main capitalize text-lg font-bold">
+                        {product.name}
+                    </h4>
+                    <div className="text-center text-green-400 font-semibold text-base mt-2">
+                        {`${formatMoney(minPrice)} ${
+                            maxPrice > minPrice
+                                ? `- ${formatMoney(maxPrice)}`
+                                : ``
+                        }
+                        VND`}
+                    </div>
+                </div>
+
+                <div className="flex justify-center items-center gap-2 mt-4 group-hover:text-orange-main">
+                    Xem chi tiết <BiDetail />
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default ProductCard;
