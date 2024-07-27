@@ -3,6 +3,7 @@ const mongoose = require("mongoose"); // Erase if already required
 // Declare the Schema of the Mongo model
 var productSchema = new mongoose.Schema(
     {
+        imageUrl: { type: String },
         name: {
             type: String,
             required: true,
@@ -18,10 +19,13 @@ var productSchema = new mongoose.Schema(
         isShow: {
             type: Boolean,
             required: true,
-            default: true
+            default: true,
         },
         optionList: [
-            { name: String, subOptions: [{ name: String, price: String }] },
+            {
+                name: String,
+                subOptions: [{ name: String, price: String }],
+            },
         ],
         category: { type: mongoose.Schema.ObjectId, ref: "Category" },
     },

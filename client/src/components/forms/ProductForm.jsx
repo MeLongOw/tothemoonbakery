@@ -7,13 +7,14 @@ import { InputForm, InputImage, TextAreaForm } from "..";
 import { useAppStore } from "src/store/useAppStore";
 import { apiCreateProduct, apiUpdateProduct } from "src/apis/product";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const ProductForm = ({
     product,
     category,
     handleGetProductList = () => {},
 }) => {
-    const [images, setImages] = useState([]);
+    // const [images, setImages] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(category._id);
 
     const {
@@ -47,7 +48,10 @@ const ProductForm = ({
     const onSubmit = async (data) => {
         if (selectedCategory) {
             if (product?._id) {
-                const payload = { ...data, categoryId: selectedCategory };
+                const payload = {
+                    ...data,
+                    categoryId: selectedCategory,
+                };
                 const response = await apiUpdateProduct(payload, product._id);
                 if (response.success) {
                     toast.success("Cập nhật sản phẩm thành công", {
@@ -55,7 +59,7 @@ const ProductForm = ({
                     });
                     handleGetProductList();
                     reset();
-                    setImages([]);
+                    // setImages([]);
                     closeModal();
                 }
                 if (!response.success) {
@@ -65,6 +69,7 @@ const ProductForm = ({
                 }
             }
             if (!product?._id) {
+    
                 const payload = { ...data, categoryId: selectedCategory };
                 const response = await apiCreateProduct(payload);
                 if (response.success) {
@@ -87,13 +92,15 @@ const ProductForm = ({
 
     useEffect(() => {
         if (product) {
-            const { name, description, category, price, optionList } = product;
+            const { name, description, category, price, optionList, imageUrl } =
+                product;
             reset({
                 name,
                 description,
                 categoryId: category,
                 price,
                 optionList,
+                imageUrl,
             });
         }
     }, [product, reset]);
@@ -105,8 +112,7 @@ const ProductForm = ({
             <form className="flex flex-col flex-1 overflow-hidden">
                 <div className="flex-1 py-4 overflow-y-scroll scroll-smooth flex flex-col gap-4">
                     <div>
-                        <InputImage images={images} setImages={setImages} />
-
+                        {/* <InputImage images={images} setImages={setImages} /> */}
                         <Select
                             color="orange"
                             className="!border-2 text-white font-bold ring-4 ring-transparent focus:ring-transparent text-sm"
@@ -130,6 +136,11 @@ const ProductForm = ({
                             ))}
                         </Select>
                     </div>
+                    <InputForm
+                        label={"Ảnh sản phẩm"}
+                        register={register}
+                        id="imageUrl"
+                    />
                     <InputForm
                         label={"Tên sản phẩm"}
                         errors={errors?.name?.message}
@@ -246,6 +257,7 @@ const ProductForm = ({
                                                                     ?.message
                                                             }
                                                         />
+                                                      
                                                     </div>
                                                     <div
                                                         onClick={() => {

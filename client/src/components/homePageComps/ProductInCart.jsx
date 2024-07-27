@@ -17,7 +17,8 @@ const ProductInCart = ({
     }, []);
     return (
         <div className="grid grid-cols-8 gap-4 mt-4">
-            <div className="relative col-span-1 aspect-square bg-blue-gray-100 w-full">
+            <div className="relative col-span-1 aspect-square bg-blue-gray-400 rounded-lg w-full">
+                {el?.product?.imageUrl && <img src={el?.product?.imageUrl} className='rounded-lg' />}
                 <div
                     onClick={(e) => {
                         e.stopPropagation();

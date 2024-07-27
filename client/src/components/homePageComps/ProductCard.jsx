@@ -8,6 +8,8 @@ import { MdDelete } from "react-icons/md";
 import { useAppStore } from "src/store/useAppStore";
 import { DetailProduct, ProductForm } from "..";
 import { apiDeleteProduct, apiToggleIsShowProduct } from "src/apis/product";
+
+import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
 const ProductCard = ({
@@ -31,15 +33,32 @@ const ProductCard = ({
     };
 
     const handleDelete = async () => {
-        const response = await apiDeleteProduct(product._id);
-        if (response.success) {
-            toast.success("Xoá sản phẩm thành công", { theme: "dark" });
-            handleGetProductList();
-        }
-        if (!response.success) {
-            toast.success("Đã có lỗi xảy ra", { theme: "dark" });
-            handleGetProductList();
-        }
+        Swal.fire({
+            title: "Xác nhận xoá sản phẩm?",
+            showCancelButton: true,
+            showConfirmButton: true,
+            reverseButtons: true,
+            showCloseButton: true,
+            icon: "question",
+            iconColor: "#f0932b",
+            customClass: {
+                title: "text-orange-main italic",
+                popup: "bg-dark-main",
+                confirmButton: "bg-orange-main w-[84px]",
+            },
+        }).then(async ({ isConfirmed }) => {
+            if (isConfirmed) {
+                const response = await apiDeleteProduct(product._id);
+                if (response.success) {
+                    toast.success("Xoá sản phẩm thành công", { theme: "dark" });
+                    handleGetProductList();
+                }
+                if (!response.success) {
+                    toast.success("Đã có lỗi xảy ra", { theme: "dark" });
+                    handleGetProductList();
+                }
+            }
+        });
     };
 
     const handleToggleShow = async () => {
@@ -120,10 +139,15 @@ const ProductCard = ({
                 </div>
             </div>
             <div className="relative w-full aspect-square bg-blue-gray-700 rounded-lg">
-                <img />
-                <div className="absolute w-full aspect-square flex justify-center items-center">
-                    <div className="hidden group-hover:block rounded-full border-white border p-1">
-                        <IoIosEye size={32} />
+                {product?.imageUrl && (
+                    <img
+                        src={product.imageUrl}
+                        className="rounded-md object-center object-contain"
+                    />
+                )}
+                <div className="absolute w-full aspect-square flex justify-center items-center top-0">
+                    <div className="hidden group-hover:block rounded-full border-2 p-1 border-orange-main">
+                        <IoIosEye size={32} className='text-orange-main' />
                     </div>
                 </div>
             </div>

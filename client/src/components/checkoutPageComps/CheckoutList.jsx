@@ -13,12 +13,14 @@ const CheckoutList = ({ total, deliFee }) => {
                     className={`flex gap-2 ${index !== 0 && "mt-4"}`}
                 >
                     <div>
-                        <div className="relative bg-blue-gray-300 w-[94px] aspect-square rounded-md border-black border">
+                        <div className="relative bg-blue-gray-400 w-[94px] aspect-square rounded-md border-black border">
                             <div className="absolute aspect-square w-[32px] text-base text-center font-bold flex items-center justify-center bg-orange-main rounded-full right-2 translate-y-[-30%] border border-white">
                                 {item.amount}
                             </div>
 
-                            <img />
+                            {item.product?.imageUrl && (
+                                <img src={item.product.imageUrl} />
+                            )}
                         </div>
                     </div>
 

@@ -6,6 +6,7 @@ const { verifyToken } = require("../middlewares/verifyToken");
 
 const Joi = require("joi");
 const {
+    string,
     stringReq,
     stringNumReq,
     productOptionSchema,
@@ -19,6 +20,7 @@ router.post(
     "/",
     validateDto(
         Joi.object({
+            imageUrl: string,
             name: stringReq,
             price: stringNumReq,
             description: stringReq,
@@ -36,6 +38,7 @@ router.put(
     "/:id",
     validateDto(
         Joi.object({
+            imageUrl: string,
             name: stringReq,
             price: stringNumReq,
             description: stringReq,

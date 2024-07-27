@@ -26,7 +26,7 @@ const CheckOutForm = ({ total, setDeliFee }) => {
     const [districtList, setDistrictList] = useState([]);
     const [isDisableSelectWard, setIsDisableSelectWard] = useState(true);
     const [wardList, setWardList] = useState([]);
-    const [activeStep, setActiveStep] = useState(1);
+    const [activeStep, setActiveStep] = useState(0);
     const [isLastStep, setIsLastStep] = useState(false);
     const [isFirstStep, setIsFirstStep] = useState(false);
     const [orderId, setOrderId] = useState();
