@@ -9,8 +9,6 @@ import {
     Alert,
 } from "@material-tailwind/react";
 import { MdPersonOutline } from "react-icons/md";
-
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { InputForm, InputSelect, TextAreaForm } from "..";
@@ -26,7 +24,7 @@ const CheckOutForm = ({ total, setDeliFee }) => {
     const [districtList, setDistrictList] = useState([]);
     const [isDisableSelectWard, setIsDisableSelectWard] = useState(true);
     const [wardList, setWardList] = useState([]);
-    const [activeStep, setActiveStep] = useState(1);
+    const [activeStep, setActiveStep] = useState(0);
     const [isLastStep, setIsLastStep] = useState(false);
     const [isFirstStep, setIsFirstStep] = useState(false);
     const [orderId, setOrderId] = useState();
