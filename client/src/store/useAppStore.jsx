@@ -11,6 +11,7 @@ export const useAppStore = create((set) => ({
         set((state) => {
             if (state.isShowModal) {
                 return {
+                    ...state,
                     isShowModal: false,
                     modalChildren: null,
                 };
@@ -20,16 +21,18 @@ export const useAppStore = create((set) => ({
         set((state) => {
             if (!state.isShowModal) {
                 return {
+                    ...state,
                     isShowModal: true,
                 };
             }
         }),
     setModalChildren: (children) =>
-        set(() => {
-            return { modalChildren: children };
+        set((state) => {
+            return {
+                ...state,
+                modalChildren: children,
+            };
         }),
-
-
 
     setIsFetchingCategory: (boolean) =>
         set(() => {
@@ -41,7 +44,6 @@ export const useAppStore = create((set) => ({
         if (res?.success) {
             return set(() => ({
                 categoryList: res.categories,
-              
             }));
         }
     },

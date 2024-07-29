@@ -40,7 +40,8 @@ const getProductById = asyncHandler(async (req, res) => {
 });
 
 const createProduct = asyncHandler(async (req, res) => {
-    const { name, price, description, categoryId, optionList } = req.body;
+    const { name, price, description, categoryId, optionList, imageUrl } =
+        req.body;
 
     const product = await Product.create({
         name,
@@ -48,6 +49,7 @@ const createProduct = asyncHandler(async (req, res) => {
         description,
         category: categoryId,
         optionList,
+        imageUrl,
     });
     if (product) {
         res.status(200).json({
@@ -67,18 +69,20 @@ const createProduct = asyncHandler(async (req, res) => {
 
 const updateProduct = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const { name, price, description, categoryId, optionList } = req.body;
+    const { name, price, description, categoryId, optionList, imageUrl } =
+        req.body;
     const updatedProduct = await Product.findByIdAndUpdate(id, {
         name,
         price,
         description,
         category: categoryId,
         optionList,
+        imageUrl,
     });
     if (updatedProduct) {
         res.status(200).json({
             success: true,
-            message: "Delete product successfully",
+            message: "Update product successfully",
             updatedProduct,
         });
     }
@@ -105,7 +109,7 @@ const toggleIsShow = asyncHandler(async (req, res) => {
         await product.save();
         res.status(200).json({
             success: true,
-            message: "Change is show product successfully",
+            message: "Change isShow product successfully",
             product,
         });
     }

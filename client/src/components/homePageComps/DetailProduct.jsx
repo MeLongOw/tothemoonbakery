@@ -41,8 +41,11 @@ const DetailProduct = ({ product }) => {
     return (
         <div className="flex-1 pb-8 overflow-y-scroll pt-8 no-scrollbar">
             <div className="grid grid-cols-5">
-                <div className="col-span-2 w-full aspect-square ">
-                    <img className="w-full aspect-square bg-blue-gray-100"></img>
+                <div className="col-span-2 w-full aspect-square bg-blue-gray-400 rounded-lg">
+                    <img
+                        className="w-full aspect-square rounded-lg object-contain object-center"
+                        src={product.imageUrl}
+                    ></img>
                 </div>
                 <div className="col-span-3 ml-4 pl-4 border-l border-orange-main text-orange-main">
                     <h3 className="w-full text-center text-2xl font-semibold italic mb-4">
