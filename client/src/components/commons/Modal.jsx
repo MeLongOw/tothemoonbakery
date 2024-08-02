@@ -12,7 +12,7 @@ const Modal = () => {
                 onClose={closeModal}
                 placement="bottom"
                 className="bg-transparent"
-                size="90vh"
+                size={'90vh'}
             >
                 <div className="w-full flex justify-center bg-transparent">
                     <div className="relative px-8 w-main h-[90vh] bg-card text-white border-orange-main border-t-2 border-x-2 shadow-2xl rounded-t-xl">
@@ -21,7 +21,9 @@ const Modal = () => {
                             onClick={closeModal}
                             className="cursor-pointer absolute top-8 right-8  text-orange-main"
                         />
-                        <div className="pt-16 h-full flex flex-col">{modalChildren}</div>
+                        <div className="pt-16 h-full flex flex-col">
+                            {modalChildren}
+                        </div>
                     </div>
                 </div>
             </Drawer>

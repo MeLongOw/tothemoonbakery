@@ -12,18 +12,18 @@ export const useUserStore = create(
 
             checkCart: async (cart) => {
                 const promises = cart?.map((el) =>
-                    apiGetProductById(el.product?._id)
+                    apiGetProductById(el?.product?._id)
                 );
                 const responses = await Promise.all(promises);
 
                 return set((state) => {
                     return {
                         cart: [
-                            ...state.cart.filter((el, index) => {
+                            ...state?.cart?.filter((el, index) => {
                                 if (responses[index]?.success) {
                                     return (
-                                        el.product.updatedAt ===
-                                        responses[index].product.updatedAt
+                                        el?.product?.updatedAt ===
+                                        responses[index]?.product?.updatedAt
                                     );
                                 }
                             }),

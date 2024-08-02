@@ -17,7 +17,7 @@ const DetailCart = () => {
     const handleRemoveFromCart = (id) => {
         deleteFormCart(id);
     };
- 
+
     useEffect(() => {
         setTotal(
             cart?.reduce(
@@ -80,8 +80,10 @@ const DetailCart = () => {
                             variant="outlined"
                             className="w-full focus:ring-0"
                             onClick={() => {
-                                closeModal();
-                                navigate("/checkout");
+                                if (cart.length) {
+                                    closeModal();
+                                    navigate("/checkout");
+                                }
                             }}
                         >
                             Mua ngay

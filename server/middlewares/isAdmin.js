@@ -12,7 +12,7 @@ const isAdmin = async (req, res, next) => {
         });
     }
 
-    if (user.role.toLowerCase() === "admin") {
+    if (user?.role.toLowerCase() === "admin") {
         next();
     } else {
         return res.status(403).json({

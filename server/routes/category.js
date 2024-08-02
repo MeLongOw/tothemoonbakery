@@ -20,6 +20,23 @@ router.put(
     isAdmin,
     ctrls.createOrUpdateCategories
 );
+router.put(
+    "/",
+    validateDto(
+        Joi.object({
+            categories: categorySchema,
+        })
+    ),
+    verifyToken,
+    isAdmin,
+    ctrls.createOrUpdateCategories
+);
+router.put(
+    "/:id/is_show_category",
+    verifyToken,
+    isAdmin,
+    ctrls.toggleIsShowCategory
+);
 
 router.delete(
     "/",

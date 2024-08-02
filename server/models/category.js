@@ -7,6 +7,11 @@ var categorySchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        isShow: {
+            type: Boolean,
+            required: true,
+            default: true,
+        },
         order: {
             type: Number,
             required: true,

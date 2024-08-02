@@ -4,6 +4,7 @@ export { default as Header } from "./header/Header";
 export { default as TopHeader } from "./header/TopHeader";
 
 export { default as CheckoutList } from "./checkoutPageComps/CheckoutList";
+export { default as LocationTable } from "./checkoutPageComps/LocationTable";
 
 export { default as CateroryForm } from "./forms/CategoryForm";
 export { default as ProductForm } from "./forms/ProductForm";

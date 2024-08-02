@@ -4,19 +4,16 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 
 const InputSelect = ({
-    autoCapitalize = "on",
     label,
     id,
     containerClassName,
-    type = "text",
     register = () => {},
     errors,
     validate,
-    placeholder,
     setValue,
     options = [],
     disabled,
-    onKeyDown = () => {},
+    defaultValue,
 }) => {
     return (
         <div
@@ -25,6 +22,8 @@ const InputSelect = ({
             )}
         >
             <Select
+                // defaultValue={defaultValue}
+                value={defaultValue}
                 id={id}
                 label={label}
                 {...register(id, validate)}
@@ -40,7 +39,10 @@ const InputSelect = ({
             >
                 {options.length &&
                     options.map((option) => (
-                        <Option value={option.name} key={option.id}>
+                        <Option
+                            value={option?.id?.toString() || option?._id}
+                            key={option.id || option._id}
+                        >
                             {option.name}
                         </Option>
                     ))}

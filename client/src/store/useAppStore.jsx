@@ -1,4 +1,5 @@
 import { apiGetCategories } from "src/apis/category";
+import { apiGetLocationList } from "src/apis/location";
 import { create } from "zustand";
 
 export const useAppStore = create((set) => ({
@@ -6,6 +7,7 @@ export const useAppStore = create((set) => ({
     modalChildren: null,
     isFetchingCategory: false,
     categoryList: [],
+    districtAndWard: [],
 
     closeModal: () =>
         set((state) => {
@@ -44,6 +46,14 @@ export const useAppStore = create((set) => ({
         if (res?.success) {
             return set(() => ({
                 categoryList: res.categories,
+            }));
+        }
+    },
+    getLocationList: async () => {
+        const res = await apiGetLocationList();
+        if (res?.success) {
+            return set(() => ({
+                districtAndWard: res.locationList,
             }));
         }
     },

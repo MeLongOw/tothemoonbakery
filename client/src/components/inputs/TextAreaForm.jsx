@@ -3,7 +3,7 @@ import clsx from "clsx";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-const InputForm = ({
+const TextAreaForm = ({
     autoCapitalize = "on",
     label,
     id,
@@ -41,4 +41,4 @@ const InputForm = ({
     );
 };
 
-export default InputForm;
+export default TextAreaForm;

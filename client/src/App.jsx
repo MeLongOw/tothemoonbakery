@@ -20,9 +20,11 @@ const App = () => {
         categoryList = [],
         getCategoryList,
         setIsFetchingCategory,
+        getLocationList,
     } = useAppStore();
 
     useEffect(() => {
+        getLocationList();
         getCurrent();
         getCategoryList();
         checkCart(cart);

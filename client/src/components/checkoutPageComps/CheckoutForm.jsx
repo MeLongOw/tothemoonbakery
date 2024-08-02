@@ -11,16 +11,20 @@ import {
 import { MdPersonOutline } from "react-icons/md";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { InputForm, InputSelect, TextAreaForm } from "..";
+import { InputForm, InputSelect, LocationTable, TextAreaForm } from "..";
 import { IoCardOutline } from "react-icons/io5";
-import { districtAndWard } from "src/utils/location";
+// import { districtAndWard } from "src/utils/location";
 import { apiCreateOrder } from "src/apis/order";
 import { toast } from "react-toastify";
 import { useUserStore } from "src/store/useUserStore";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { MdEdit } from "react-icons/md";
+import { useAppStore } from "src/store/useAppStore";
 
 const CheckOutForm = ({ total, setDeliFee }) => {
+    const { districtAndWard } = useAppStore();
+    const navigate = useNavigate();
     const [districtList, setDistrictList] = useState([]);
     const [isDisableSelectWard, setIsDisableSelectWard] = useState(true);
     const [wardList, setWardList] = useState([]);
@@ -28,8 +32,9 @@ const CheckOutForm = ({ total, setDeliFee }) => {
     const [isLastStep, setIsLastStep] = useState(false);
     const [isFirstStep, setIsFirstStep] = useState(false);
     const [orderId, setOrderId] = useState();
+
     const { cart, checkCart, clearCart } = useUserStore();
-    const navigate = useNavigate();
+    const { openModal, setModalChildren } = useAppStore();
 
     const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1);
     const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1);
@@ -61,9 +66,15 @@ const CheckOutForm = ({ total, setDeliFee }) => {
         }
     };
 
+    const handleEditLocation = () => {
+        openModal();
+        setModalChildren(<LocationTable />);
+    };
+
     useEffect(() => {
         setWardList(
-            districtAndWard.find((el) => el.name === watch("district"))?.wards
+            districtAndWard.find((el) => el.id.toString() === watch("district"))
+                ?.wards
         );
         if (watch("district")) {
             setIsDisableSelectWard(false);
@@ -75,9 +86,7 @@ const CheckOutForm = ({ total, setDeliFee }) => {
 
     useEffect(() => {
         if (watch("ward")) {
-            setDeliFee(
-                wardList.find((ward) => ward.name === watch("ward")).fee
-            );
+            setDeliFee(wardList.find((ward) => ward.id === watch("ward")).fee);
         }
     }, [watch("ward")]);
 
@@ -172,7 +181,7 @@ const CheckOutForm = ({ total, setDeliFee }) => {
                                 errors={errors?.address?.message}
                             />
 
-                            <div className="flex gap-2">
+                            <div className="flex gap-2 relative">
                                 <InputSelect
                                     id="district"
                                     label={"Quận/Huyện"}
@@ -196,6 +205,15 @@ const CheckOutForm = ({ total, setDeliFee }) => {
                                     options={wardList}
                                     disabled={isDisableSelectWard}
                                 />
+                                <div
+                                    className="p-2 aspect-square bg-red-400 absolute right-6 cursor-pointer translate-y-[-50%] rounded-full"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleEditLocation();
+                                    }}
+                                >
+                                    <MdEdit size={20} />
+                                </div>
                             </div>
 
                             <TextAreaForm

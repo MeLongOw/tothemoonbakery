@@ -14,6 +14,7 @@ const InputForm = ({
     validate,
     placeholder,
     onKeyDown = () => {},
+    ...rest
 }) => {
     return (
         <div
@@ -32,6 +33,7 @@ const InputForm = ({
                 placeholder={placeholder}
                 onKeyDown={onKeyDown}
                 label={label}
+                {...rest}
             />
             {validate && (
                 <small className="text-sm text-red-600">{errors}</small>

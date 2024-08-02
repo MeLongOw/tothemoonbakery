@@ -34,6 +34,26 @@ const createOrUpdateCategories = asyncHandler(async (req, res) => {
     res.status(200).json({ success: true, response });
 });
 
+const toggleIsShowCategory = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+
+    const category = await Category.findById(id);
+    if (category) {
+        category.isShow = !category.isShow;
+        await category.save();
+        res.status(200).json({
+            success: true,
+            message: "Update isShow successfully",
+        });
+    }
+    if (!category) {
+        res.status(400).json({
+            success: false,
+            message: "failed to update isShow",
+        });
+    }
+});
+
 const deleteCategories = asyncHandler(async (req, res) => {
     const { categories } = req.body;
 
@@ -50,4 +70,5 @@ module.exports = {
     createOrUpdateCategories,
     getCategories,
     deleteCategories,
+    toggleIsShowCategory,
 };
