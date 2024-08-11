@@ -7,7 +7,7 @@ const verifyToken = (req, res, next) => {
         throw new Error("credentials is not provided");
     }
     const rawToken = req.headers?.authorization?.split(" ")[1];
-    jwt.verify(rawToken, process.env.JWT_SECRET, (err, decode) => {
+    jwt.verify(rawToken, process.env.TTM_JWT_SECRET, (err, decode) => {
         if (err) {
             res.status(401);
             throw new Error("credentials invalid");

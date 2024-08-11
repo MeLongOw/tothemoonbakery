@@ -60,7 +60,7 @@ const login = asyncHandler(async (req, res) => {
 
     const token = jwt.sign(
         { uid: user._id, role: user?.role },
-        process.env.JWT_SECRET
+        process.env.TTM_JWT_SECRET
     );
 
     return res.status(200).json({

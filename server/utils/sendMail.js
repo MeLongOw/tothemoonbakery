@@ -6,8 +6,8 @@ const transporter = nodemailer.createTransport({
     port: 587,
     secure: false, // Use `true` for port 465, `false` for all other ports
     auth: {
-        user: process.env.GOOGLE_MAIL_USERNAME,
-        pass: process.env.GOOGLE_MAIL_PASSWORD,
+        user: process.env.TTM_GOOGLE_MAIL_USERNAME,
+        pass: process.env.TTM_GOOGLE_MAIL_PASSWORD,
     },
 });
 
