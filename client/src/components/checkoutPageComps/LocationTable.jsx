@@ -26,6 +26,7 @@ const LocationTable = () => {
         handleSubmit,
         reset,
         setValue,
+        setFocus,
     } = useForm();
 
     const handleToggleShowDistrict = async (id) => {
@@ -177,6 +178,7 @@ const LocationTable = () => {
                                                     onClick={() => {
                                                         setEdittingId(el._id);
                                                         setValue("fee", el.fee);
+                                                        setFocus('fee')
                                                     }}
                                                 />
                                             </span>

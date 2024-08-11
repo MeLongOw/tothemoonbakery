@@ -45,47 +45,73 @@ const ProductForm = ({
     const { categoryList, closeModal } = useAppStore();
 
     const onSubmit = async (data) => {
-        console.log({ data });
-        const { category, ...copyData } = data;
-        if (product?._id) {
-            const payload = {
-                ...copyData,
-                categoryId: category,
-            };
-            const response = await apiUpdateProduct(payload, product._id);
-            if (response.success) {
-                toast.success("Cập nhật sản phẩm thành công", {
-                    theme: "dark",
-                });
-                handleGetProductList();
-                reset();
-                // setImages([]);
-                closeModal();
+        Swal.fire({
+            title: "Xác nhận lưu?",
+            showCancelButton: true,
+            showConfirmButton: true,
+            reverseButtons: true,
+            showCloseButton: true,
+            icon: "question",
+            iconColor: "#f0932b",
+            customClass: {
+                title: "text-orange-main italic",
+                popup: "bg-dark-main",
+                confirmButton: "bg-orange-main w-[84px]",
+                container: "z-[99999]",
+            },
+        }).then(async ({ isConfirmed }) => {
+            if (isConfirmed) {
+                const { category, ...copyData } = data;
+                if (product?._id) {
+                    const payload = {
+                        ...copyData,
+                        categoryId: category,
+                    };
+                    const response = await apiUpdateProduct(
+                        payload,
+                        product._id
+                    );
+                    if (response.success) {
+                        toast.success("Cập nhật sản phẩm thành công", {
+                            theme: "dark",
+                        });
+                        handleGetProductList();
+                        reset();
+                        // setImages([]);
+                        closeModal();
+                    }
+                    if (!response.success) {
+                        toast.error(
+                            "Cập nhật sản phẩm thất bại. Có lỗi xảy ra",
+                            {
+                                theme: "dark",
+                            }
+                        );
+                    }
+                }
+                if (!product?._id) {
+                    const payload = { ...copyData, categoryId: category };
+                    const response = await apiCreateProduct(payload);
+                    if (response.success) {
+                        toast.success("Cập nhật sản phẩm thành công", {
+                            theme: "dark",
+                        });
+                        closeModal();
+                        handleGetProductList();
+                        reset();
+                        setImages([]);
+                    }
+                    if (!response.success) {
+                        toast.error(
+                            "Cập nhật sản phẩm thất bại. Có lỗi xảy ra",
+                            {
+                                theme: "dark",
+                            }
+                        );
+                    }
+                }
             }
-            if (!response.success) {
-                toast.error("Cập nhật sản phẩm thất bại. Có lỗi xảy ra", {
-                    theme: "dark",
-                });
-            }
-        }
-        if (!product?._id) {
-            const payload = { ...copyData, categoryId: category };
-            const response = await apiCreateProduct(payload);
-            if (response.success) {
-                toast.success("Cập nhật sản phẩm thành công", {
-                    theme: "dark",
-                });
-                closeModal();
-                handleGetProductList();
-                reset();
-                setImages([]);
-            }
-            if (!response.success) {
-                toast.error("Cập nhật sản phẩm thất bại. Có lỗi xảy ra", {
-                    theme: "dark",
-                });
-            }
-        }
+        });
     };
 
     useEffect(() => {

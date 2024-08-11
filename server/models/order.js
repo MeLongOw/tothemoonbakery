@@ -28,6 +28,11 @@ var orderSchema = new mongoose.Schema(
             unique: true,
         },
         cart: [],
+        status: {
+            type: String,
+            enum: ["pending", "confirmed", "completed", "cancel"],
+            default: "pending",
+        },
     },
     { timestamps: true }
 );

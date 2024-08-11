@@ -106,7 +106,7 @@ const ProductCard = ({
 
     return (
         <div
-            className="group relative flex flex-col bg-card border-orange-yellow-main border-2 shadow-2xl p-2 rounded-lg hover:animate-pulsate-fwd1 cursor-pointer "
+            className="group relative flex flex-col bg-card border-orange-yellow-main border-2 shadow-2xl p-2 rounded-lg hover:animate-pulsate-fwd cursor-pointer "
             onClick={handleShowDetail}
         >
             {current?.role === "admin" && (

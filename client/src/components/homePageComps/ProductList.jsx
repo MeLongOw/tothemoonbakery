@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { useUserStore } from "src/store/useUserStore";
 
 const ProductList = ({ category }) => {
+    const [isfetching, setIsfetching] = useState(false);
     const [productList, setProductList] = useState([]);
 
     const { openModal, setModalChildren, getCategoryList } = useAppStore();
@@ -29,9 +30,14 @@ const ProductList = ({ category }) => {
     };
 
     const handleGetProductList = async () => {
+        setIsfetching(true);
         const response = await apiGetProducts(category);
         if (response.success) {
             setProductList(response.productList);
+            setIsfetching(false);
+        }
+        if (!response.success) {
+            setIsfetching(false);
         }
     };
 
@@ -85,14 +91,23 @@ const ProductList = ({ category }) => {
                     )}
                 </h3>
                 <div className="grid grid-cols-4 gap-4 mt-4">
-                    {productList.map((el) => (
-                        <ProductCard
-                            product={el}
-                            category={category}
-                            key={el._id}
-                            handleGetProductList={handleGetProductList}
-                        />
-                    ))}
+                    {!!productList.length &&
+                        productList.map((el) => (
+                            <ProductCard
+                                product={el}
+                                category={category}
+                                key={el._id}
+                                handleGetProductList={handleGetProductList}
+                            />
+                        ))}
+                    {!!!productList.length && isfetching && (
+                        <>
+                            <div className="aspect-card w-full animate-pulse rounded-xl bg-blue-gray-500"></div>
+                            <div className="aspect-card w-full animate-pulse rounded-xl bg-blue-gray-500"></div>
+                            <div className="aspect-card w-full animate-pulse rounded-xl bg-blue-gray-500"></div>
+                            <div className="aspect-card w-full animate-pulse rounded-xl bg-blue-gray-500"></div>
+                        </>
+                    )}
                 </div>
             </div>
         </Element>

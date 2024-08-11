@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 const withMT = require("@material-tailwind/react/utils/withMT");
 export default withMT({
+    darkMode: 'class',
     content: [
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
@@ -18,6 +19,7 @@ export default withMT({
 
             aspectRatio: {
                 "16/5": "16 / 5",
+                "card": "4 / 5",
             },
             width: {
                 main: "1280px",

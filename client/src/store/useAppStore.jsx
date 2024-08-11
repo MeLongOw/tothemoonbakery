@@ -18,6 +18,9 @@ export const useAppStore = create((set) => ({
                     modalChildren: null,
                 };
             }
+            if (!state.isShowModal) {
+                return state;
+            }
         }),
     openModal: () =>
         set((state) => {
@@ -26,6 +29,9 @@ export const useAppStore = create((set) => ({
                     ...state,
                     isShowModal: true,
                 };
+            }
+            if (state.isShowModal) {
+                return state;
             }
         }),
     setModalChildren: (children) =>

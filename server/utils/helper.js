@@ -9,4 +9,9 @@ const generateUUID = () => {
     return bn.toString(10).slice(-16);
 };
 
-module.exports = { generateUUID };
+const formatMoney = (num) => {
+    if (!Number(num)) return 0;
+    return Number(Number(num).toFixed(0)).toLocaleString();
+};
+
+module.exports = { generateUUID, formatMoney };

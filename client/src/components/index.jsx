@@ -25,3 +25,5 @@ export { default as InputForm } from "./inputs/InputForm";
 export { default as InputImage } from "./inputs/InputImage";
 export { default as InputSelect } from "./inputs/InputSelect";
 export { default as TextAreaForm } from "./inputs/TextAreaForm";
+
+export { default as OrderDetail } from "./orderPageComps/OrderDetail";

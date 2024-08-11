@@ -4,7 +4,9 @@ const cors = require("cors");
 const app = express();
 const dbConnect = require("./config/dbconnect");
 const initRoutes = require("./routes");
+const moment = require("moment");
 
+console.log(123, new Date());
 app.use(
     cors({
         origin: process.env.CLIENT_URL,

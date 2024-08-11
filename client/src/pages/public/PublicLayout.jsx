@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { Element } from "react-scroll";
-import { Header } from "src/components";
+import { Cart, Header } from "src/components";
 
 const PublicLayout = () => {
     return (
@@ -13,6 +13,7 @@ const PublicLayout = () => {
                 <Header />
                 <div className="">
                     <Outlet />
+                    <Cart />
                 </div>
             </Element>
         </main>

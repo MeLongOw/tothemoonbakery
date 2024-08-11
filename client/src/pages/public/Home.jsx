@@ -13,7 +13,8 @@ const Home = () => {
                     <ProductList category={category} key={category._id} />
                 ))}
             </div>
-            <Cart />
+            
+       
         </div>
     );
 };

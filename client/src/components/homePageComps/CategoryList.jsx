@@ -4,6 +4,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import { useAppStore } from "src/store/useAppStore";
 import { CategoryItem, CateroryForm } from "src/components";
 import { useUserStore } from "src/store/useUserStore";
+import { Typography } from "@material-tailwind/react";
 
 const CategoryList = () => {
     const [activeId, setActiveId] = useState();
@@ -49,7 +50,78 @@ const CategoryList = () => {
                                     />
                                 ))
                             ) : (
-                                <div></div>
+                                <>
+                                    <div className="max-w-full animate-pulse flex items-centerpy-4">
+                                        <div className="py-4 flex items-center">
+                                            <div className="h-4 w-40 rounded-full bg-blue-gray-700">
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="max-w-full animate-pulse flex items-centerpy-4">
+                                        <div className="py-4 flex items-center">
+                                            <div className="h-4 w-40 rounded-full bg-blue-gray-700">
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="max-w-full animate-pulse flex items-centerpy-4">
+                                        <div className="py-4 flex items-center">
+                                            <div className="h-4 w-40 rounded-full bg-blue-gray-700">
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="max-w-full animate-pulse flex items-centerpy-4">
+                                        <div className="py-4 flex items-center">
+                                            <div className="h-4 w-40 rounded-full bg-blue-gray-700">
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="max-w-full animate-pulse flex items-centerpy-4">
+                                        <div className="py-4 flex items-center">
+                                            <div className="h-4 w-40 rounded-full bg-blue-gray-700">
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="max-w-full animate-pulse flex items-centerpy-4">
+                                        <div className="py-4 flex items-center">
+                                            <div className="h-4 w-40 rounded-full bg-blue-gray-700">
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="max-w-full animate-pulse flex items-centerpy-4">
+                                        <div className="py-4 flex items-center">
+                                            <div className="h-4 w-40 rounded-full bg-blue-gray-700">
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="max-w-full animate-pulse flex items-centerpy-4">
+                                        <div className="py-4 flex items-center">
+                                            <div className="h-4 w-40 rounded-full bg-blue-gray-700">
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="max-w-full animate-pulse flex items-centerpy-4">
+                                        <div className="py-4 flex items-center">
+                                            <div className="h-4 w-40 rounded-full bg-blue-gray-700">
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="max-w-full animate-pulse flex items-centerpy-4">
+                                        <div className="py-4 flex items-center">
+                                            <div className="h-4 w-40 rounded-full bg-blue-gray-700">
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                </>
                             )}
                         </ScrollContainer>
                     </div>

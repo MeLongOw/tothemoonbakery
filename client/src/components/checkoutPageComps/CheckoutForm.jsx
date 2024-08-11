@@ -47,12 +47,15 @@ const CheckOutForm = ({ total, setDeliFee }) => {
     } = useForm();
 
     const onSubmit = async (data) => {
-        const { name, phone, email, address, note } = data;
+        const { name, phone, email, address, district, ward, note } = data;
+        console.log({ data });
         const response = await apiCreateOrder({
             name,
             phone,
             email,
             address,
+            districtId: district,
+            wardId: ward,
             note,
             cart,
         });
@@ -82,6 +85,11 @@ const CheckOutForm = ({ total, setDeliFee }) => {
         if (!watch("district")) {
             setIsDisableSelectWard(true);
         }
+    }, [watch("district"), districtAndWard]);
+
+    useEffect(() => {
+        if (watch("district")) {
+        }
     }, [watch("district")]);
 
     useEffect(() => {
@@ -100,7 +108,7 @@ const CheckOutForm = ({ total, setDeliFee }) => {
                 })
                 .sort((a, b) => a.id - b.id)
         );
-    }, []);
+    }, [districtAndWard]);
     return (
         <div className="bg-card border-black shadow-xl border-2 rounded-xl p-4">
             <div>
@@ -299,8 +307,10 @@ const CheckOutForm = ({ total, setDeliFee }) => {
                                             }
                                         });
                                     }}
+                                    className="flex gap-2"
                                 >
                                     Xác nhận đã thanh toán
+                                 
                                 </Button>
                             </div>
                         </div>

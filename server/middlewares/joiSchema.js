@@ -14,6 +14,7 @@ exports.arrayReq = Joi.array().required();
 exports.date = Joi.date();
 exports.dateReq = Joi.date().required();
 
+
 exports.categorySchema = Joi.array().items(
     Joi.object().keys({
         id: Joi.string().allow(null, ""),

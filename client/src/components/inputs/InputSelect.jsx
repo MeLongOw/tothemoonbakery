@@ -42,8 +42,14 @@ const InputSelect = ({
                         <Option
                             value={option?.id?.toString() || option?._id}
                             key={option.id || option._id}
+                            disabled={!option?.isShow}
+                            className='mb-2'
                         >
-                            {option.name}
+                            {`${option.name} ${
+                                !option?.isShow
+                                    ? "(Khu vực không giao hàng)"
+                                    : "" 
+                            }`}
                         </Option>
                     ))}
             </Select>

@@ -6,6 +6,7 @@ import {
     Checkout,
     Home,
     Login,
+    Order,
     PublicLayout,
     Register,
 } from "./pages/public";
@@ -47,6 +48,7 @@ const App = () => {
                     <Route path={path.LOGIN} element={<Login />}></Route>
                     <Route path={path.REGISTER} element={<Register />}></Route>
                     <Route path={path.CHECKOUT} element={<Checkout />}></Route>
+                    <Route path={path.ORDER} element={<Order />}></Route>
                 </Route>
             </Routes>
             <Modal />

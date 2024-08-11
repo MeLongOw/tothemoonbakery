@@ -31,7 +31,7 @@ const TopHeader = () => {
                 </span>
                 <span>|</span>
                 <span className="flex items-center gap-2">
-                    <RiCellphoneFill size={18} /> 0906 243 664
+                    <RiCellphoneFill size={18} /> 0899 891 122
                 </span>
             </div>
             <div className="flex items-center gap-2">
